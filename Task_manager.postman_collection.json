@@ -1,0 +1,540 @@
+{
+	"info": {
+		"_postman_id": "cecab29f-d6ce-41e2-8323-2510952fe962",
+		"name": "Task_manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38024524"
+	},
+	"item": [
+		{
+			"name": "create task",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"task_id\": \"task_001\",\r\n  \"status\": \"pending\",\r\n  \"description\": \"This is the first test task\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8001/api/tasks/create/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"tasks",
+						"create",
+						""
+					]
+				},
+				"description": "## **Create Task API**\n\n### **Endpoint**\n\n`POST /api/tasks/create/`\n\n---\n\n### **Description**\n\nCreates a new task in the system with the specified `task_id`, `status`, and `description`.\n\n---\n\n### **Request Headers**\n\n| Header | Value | Required | Description |\n| --- | --- | --- | --- |\n| `Content-Type` | `application/json` | Yes | Indicates the request body is in JSON format. |\n\n---\n\n### **Request Body**\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `task_id` | String | Yes | Unique identifier for the task. |\n| `status` | String | Yes | Status of the task (`pending`, etc.). |\n| `description` | String | Yes | A short description of the task. |\n\n**Request Example:**\n\n```\njsonCopyEdit{\n  \"task_id\": \"task_001\",\n  \"status\": \"pending\",\n  \"description\": \"This is the first test task\"\n}\n\n ```\n\n---\n\n### **Response**\n\n#### **Success (201 Created or 200 OK)**\n\nIf the task is created successfully, the API responds with the task details including timestamps.\n\n**Response Example:**\n\n```\njsonCopyEdit{\n  \"status\": \"success\",\n  \"message\": \"Task created successfully\",\n  \"data\": {\n    \"task_id\": \"task_001\",\n    \"status\": \"pending\",\n    \"description\": \"This is the first test task\",\n    \"created_at\": \"2025-05-13T12:07:18.918504Z\",\n    \"updated_at\": \"2025-05-13T12:07:18.918529Z\"\n  }\n}\n\n ```\n\n---\n\n### **Response Fields**\n\n| Field Name | Type | Description |\n| --- | --- | --- |\n| `status` | String | `\"success\"` if the task is created. |\n| `message` | String | Informational message. |\n| `data.task_id` | String | Unique identifier of the created task. |\n| `data.status` | String | Task status. |\n| `data.description` | String | Task description. |\n| `data.created_at` | DateTime | ISO timestamp when the task was created. |\n| `data.updated_at` | DateTime | ISO timestamp when the task was last updated. |\n\n---\n\n### **Possible Error Responses**\n\n**Example: Missing Field**\n\n```\njsonCopyEdit{\n  \"status\": \"error\",\n  \"message\": \"Missing required field: task_id\"\n}\n\n ```\n\n**Example: Duplicate Task ID**\n\n```\njsonCopyEdit{\n  \"status\": \"error\",\n  \"message\": \"Task with this ID already exists.\"\n}\n\n ```"
+			},
+			"response": [
+				{
+					"name": "create task",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"task_id\": \"task_001\",\r\n  \"status\": \"pending\",\r\n  \"description\": \"This is the first test task\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/tasks/create/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"tasks",
+								"create",
+								""
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 13 May 2025 12:07:18 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "237"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"message\": \"Task created successfully\",\n    \"data\": {\n        \"task_id\": \"task_001\",\n        \"status\": \"pending\",\n        \"description\": \"This is the first test task\",\n        \"created_at\": \"2025-05-13T12:07:18.918504Z\",\n        \"updated_at\": \"2025-05-13T12:07:18.918529Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "list task",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8001/api/tasks/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"tasks",
+						""
+					]
+				},
+				"description": "## **Get All Tasks API**\n\n### **Endpoint**\n\n`GET /api/tasks/`\n\n---\n\n### **Description**\n\nRetrieves a list of all tasks stored in the system.\n\n---\n\n### **Request Headers**\n\n_No headers required (optional JSON accept headers can be used)._\n\n---\n\n### **Request Parameters**\n\n_No query parameters required by default._\n\n---\n\n### **Response**\n\n#### **Success (200 OK)**\n\nReturns a list of all available tasks along with their details.\n\n**Response Example:**\n\n```\njsonCopyEdit{\n  \"status\": \"success\",\n  \"message\": \"Tasks retrieved successfully\",\n  \"data\": [\n    {\n      \"task_id\": \"task_001\",\n      \"status\": \"pending\",\n      \"description\": \"This is the first test task\",\n      \"created_at\": \"2025-05-13T12:07:18.918000Z\",\n      \"updated_at\": \"2025-05-13T12:07:18.918000Z\"\n    },\n    {\n      \"task_id\": \"task_003\",\n      \"status\": \"pending\",\n      \"description\": \"This is the second test task\",\n      \"created_at\": \"2025-05-13T12:08:29.720000Z\",\n      \"updated_at\": \"2025-05-13T12:08:29.720000Z\"\n    },\n    {\n      \"task_id\": \"task_006\",\n      \"status\": \"pending\",\n      \"description\": \"This is the sixth test task\",\n      \"created_at\": \"2025-05-13T12:08:44.095000Z\",\n      \"updated_at\": \"2025-05-13T12:08:44.095000Z\"\n    }\n  ]\n}\n\n ```\n\n---\n\n### **Response Fields**\n\n| Field Name | Type | Description |\n| --- | --- | --- |\n| `status` | String | `\"success\"` on successful fetch. |\n| `message` | String | Human-readable status message. |\n| `data` | Array | List of tasks. |\n| `data[].task_id` | String | Task identifier. |\n| `data[].status` | String | Task status (e.g., `\"pending\"`). |\n| `data[].description` | String | Task description. |\n| `data[].created_at` | DateTime | ISO timestamp of task creation. |\n| `data[].updated_at` | DateTime | ISO timestamp of last task update. |"
+			},
+			"response": [
+				{
+					"name": "list task",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/api/tasks/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"tasks",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 13 May 2025 12:08:59 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "587"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"message\": \"Tasks retrieved successfully\",\n    \"data\": [\n        {\n            \"task_id\": \"task_001\",\n            \"status\": \"pending\",\n            \"description\": \"This is the first test task\",\n            \"created_at\": \"2025-05-13T12:07:18.918000Z\",\n            \"updated_at\": \"2025-05-13T12:07:18.918000Z\"\n        },\n        {\n            \"task_id\": \"task_003\",\n            \"status\": \"pending\",\n            \"description\": \"This is the second test task\",\n            \"created_at\": \"2025-05-13T12:08:29.720000Z\",\n            \"updated_at\": \"2025-05-13T12:08:29.720000Z\"\n        },\n        {\n            \"task_id\": \"task_006\",\n            \"status\": \"pending\",\n            \"description\": \"This is the sixth test task\",\n            \"created_at\": \"2025-05-13T12:08:44.095000Z\",\n            \"updated_at\": \"2025-05-13T12:08:44.095000Z\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "read specific task",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8001/api/tasks/task_001/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"tasks",
+						"task_001",
+						""
+					]
+				},
+				"description": "## **Get Task by ID API**\n\n### **Endpoint**\n\n`GET /api/tasks//`\n\n---\n\n### **Description**\n\nRetrieves the details of a specific task by its `task_id`.\n\n---\n\n### **Path Parameters**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `task_id` | String | The ID of the task to retrieve |\n\n---\n\n### **Request Example**\n\n```\nbashCopyEditcurl --location 'http://localhost:8001/api/tasks/task_001/'\n\n ```\n\n---\n\n### **Response**\n\n#### **Success (200 OK)**\n\nReturns the task matching the provided `task_id`.\n\n**Response Example:**\n\n```\njsonCopyEdit{\n  \"status\": \"success\",\n  \"message\": \"Task retrieved successfully\",\n  \"data\": {\n    \"task_id\": \"task_001\",\n    \"status\": \"pending\",\n    \"description\": \"This is the first test task\",\n    \"created_at\": \"2025-05-13T12:07:18.918000Z\",\n    \"updated_at\": \"2025-05-13T12:07:18.918000Z\"\n  }\n}\n\n ```\n\n---\n\n### **Response Fields**\n\n| Field Name | Type | Description |\n| --- | --- | --- |\n| `status` | String | `\"success\"` on successful fetch. |\n| `message` | String | Human-readable status message. |\n| `data.task_id` | String | Task identifier. |\n| `data.status` | String | Task status (e.g., `\"pending\"`). |\n| `data.description` | String | Task description. |\n| `data.created_at` | DateTime | ISO timestamp of task creation. |\n| `data.updated_at` | DateTime | ISO timestamp of last task update. |\n\n---\n\n### **Possible Error Responses**\n\n**Example: Task Not Found (404)**\n\n```\njsonCopyEdit{\n  \"status\": \"error\",\n  \"message\": \"Task with ID task_001 not found.\"\n}\n\n\n\n ```"
+			},
+			"response": [
+				{
+					"name": "read specific task",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/api/tasks/task_001/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"tasks",
+								"task_001",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 13 May 2025 12:10:32 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "239"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"message\": \"Task retrieved successfully\",\n    \"data\": {\n        \"task_id\": \"task_001\",\n        \"status\": \"pending\",\n        \"description\": \"This is the first test task\",\n        \"created_at\": \"2025-05-13T12:07:18.918000Z\",\n        \"updated_at\": \"2025-05-13T12:07:18.918000Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "update task",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"task_id\": \"task_003\",\r\n  \"status\": \"completed\",\r\n  \"description\": \"This is the third test task\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8001/api/tasks/task_003/update/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"tasks",
+						"task_003",
+						"update",
+						""
+					]
+				},
+				"description": "## **Update Task API**\n\n### **Endpoint**\n\n`PUT /api/tasks//update/`\n\n---\n\n### **Description**\n\nUpdates the details of an existing task identified by `task_id`.\n\n---\n\n### **Path Parameters**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `task_id` | String | ID of the task to be updated |\n\n---\n\n### **Request Headers**\n\n| Header Name | Value |\n| --- | --- |\n| `Content-Type` | `application/json` |\n\n---\n\n### **Request Body**\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `task_id` | String | Yes | ID of the task being updated |\n| `status` | String | Yes | New status (e.g., `\"completed\"`) |\n| `description` | String | Optional | Updated description of the task |\n\n---\n\n### **Request Example**\n\n```\nbashCopyEditcurl --location --request PUT 'http://localhost:8001/api/tasks/task_003/update/' \\\n--header 'Content-Type: application/json' \\\n--data '{\n  \"task_id\": \"task_003\",\n  \"status\": \"completed\",\n  \"description\": \"This is the third test task\"\n}'\n\n ```\n\n---\n\n### **Response**\n\n#### **Success (200 OK)**\n\nReturns the updated task details.\n\n**Response Example:**\n\n```\njsonCopyEdit{\n  \"status\": \"success\",\n  \"message\": \"Task updated successfully\",\n  \"data\": {\n    \"task_id\": \"task_003\",\n    \"status\": \"completed\",\n    \"description\": \"This is the third test task\",\n    \"created_at\": \"2025-05-13T12:18:25.078543Z\",\n    \"updated_at\": \"2025-05-13T12:18:25.078565Z\"\n  }\n}\n\n ```\n\n---\n\n### **Response Fields**\n\n| Field Name | Type | Description |\n| --- | --- | --- |\n| `status` | String | `\"success\"` on successful update |\n| `message` | String | Human-readable confirmation message |\n| `data.task_id` | String | ID of the updated task |\n| `data.status` | String | Updated task status |\n| `data.description` | String | Updated task description |\n| `data.created_at` | DateTime | ISO timestamp of creation |\n| `data.updated_at` | DateTime | ISO timestamp of last update |\n\n---\n\n### **Possible Error Responses**\n\n**Example: Task Not Found (404)**\n\n```\njsonCopyEdit{\n  \"status\": \"error\",\n  \"message\": \"Task with ID task_003 not found.\"\n}\n\n\n ```"
+			},
+			"response": [
+				{
+					"name": "update task",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"task_id\": \"task_003\",\r\n  \"status\": \"completed\",\r\n  \"description\": \"This is the third test task\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/tasks/task_003/update/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"tasks",
+								"task_003",
+								"update",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 13 May 2025 12:18:25 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "PUT, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "239"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"message\": \"Task updated successfully\",\n    \"data\": {\n        \"task_id\": \"task_003\",\n        \"status\": \"completed\",\n        \"description\": \"This is the third test task\",\n        \"created_at\": \"2025-05-13T12:18:25.078543Z\",\n        \"updated_at\": \"2025-05-13T12:18:25.078565Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "delete task",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8001/api/tasks/task_006/delete/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"tasks",
+						"task_006",
+						"delete",
+						""
+					]
+				},
+				"description": "## **Delete Task API**\n\n### **Endpoint**\n\n`DELETE /api/tasks//delete/`\n\n---\n\n### **Description**\n\nDeletes an existing task identified by `task_id`.\n\n---\n\n### **Path Parameters**\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `task_id` | String | ID of the task to be deleted |\n\n---\n\n### **Request Headers**\n\n| Header Name | Value |\n| --- | --- |\n| `Content-Type` | `application/json` |\n\n---\n\n### **Request Example**\n\n```\nbashCopyEditcurl --location --request DELETE 'http://localhost:8001/api/tasks/task_006/delete/'\n\n ```\n\n---\n\n### **Response**\n\n#### **Success (200 OK)**\n\nIndicates that the task was deleted successfully.\n\n**Response Example:**\n\n```\njsonCopyEdit{\n  \"status\": \"success\",\n  \"message\": \"Task with task_id 'task_006' deleted successfully.\",\n  \"data\": {}\n}\n\n ```\n\n---\n\n### **Response Fields**\n\n| Field Name | Type | Description |\n| --- | --- | --- |\n| `status` | String | `\"success\"` if deletion is successful |\n| `message` | String | Confirmation message |\n| `data` | Object | Empty object (no additional data needed) |\n\n---\n\n### **Possible Error Responses**\n\n**Example: Task Not Found (404)**\n\n```\njsonCopyEdit{\n  \"status\": \"error\",\n  \"message\": \"Task with ID 'task_006' not found.\"\n}\n\n ```"
+			},
+			"response": [
+				{
+					"name": "delete task",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/api/tasks/task_006/delete/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"tasks",
+								"task_006",
+								"delete",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 13 May 2025 13:28:14 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "DELETE, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "93"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"message\": \"Task with task_id 'task_006' deleted successfully.\",\n    \"data\": {}\n}"
+				}
+			]
+		}
+	]
+}
